@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 export const Header: FC<HeaderProps> = ({ actions, className }) => {
-  const { data: user } = useMeQuery();
+  const { data: user } = useMeQuery(null);
 
   return (
     <header

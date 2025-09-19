@@ -29,14 +29,26 @@ export const authApi = baseApi.injectEndpoints({
         }
       }
     }),
-    me: builder.query<User, void>({
+    me: builder.query<User, null>({
       query: () => ({
         url: API_ROUTES.ME,
         method: 'GET'
       }),
       transformResponse: (response: { user: User }) => response.user
+    }),
+    logout: builder.mutation<{ success: boolean }, void>({
+      queryFn: (_arg, { dispatch }) => {
+        tokenManager.clearToken();
+        dispatch(authApi.util.resetApiState());
+        return { data: { success: true } };
+      }
     })
   })
 });
 
-export const { useLoginMutation, useRegisterMutation, useMeQuery } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useMeQuery,
+  useLogoutMutation
+} = authApi;
