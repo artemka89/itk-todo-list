@@ -5,6 +5,11 @@ export type Error = {
   status: number;
 };
 
+export interface RefreshTokensRequest {
+  accessToken: string;
+  refreshToken: string;
+}
+
 export function isErrorWithMessage(error: unknown): error is Error {
   return (
     typeof error === 'object' &&
