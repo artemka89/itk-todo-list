@@ -20,7 +20,7 @@ export const AuthLayout: FC<AuthLayoutProps> = ({ className }) => {
       <main
         className={cn(
           className,
-          '-mt-16 flex h-[calc(100vh-var(--header-height))] items-center justify-center p-4'
+          '-mt-16 flex h-[calc(100dvh-var(--header-height))] items-center justify-center p-4'
         )}
       >
         <Outlet />

@@ -16,7 +16,7 @@ export const MainLayout: FC = () => {
           </>
         }
       />
-      <main className='mt-4 h-[calc(100vh-var(--header-height)-16px))]'>
+      <main className='mt-4 h-[calc(100dvh-var(--header-height)-16px))]'>
         <Outlet />
       </main>
     </>
