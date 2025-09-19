@@ -9,12 +9,13 @@ import { Mutex } from 'async-mutex';
 import { tokenManager } from '../lib/token-manager';
 import { API_ROUTES } from '../routes';
 
+import { API_URL } from './constants';
 import type { RefreshTokensRequest } from './types';
 
 const mutex = new Mutex();
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.VITE_API_URL
+  baseUrl: API_URL
 });
 
 export const baseQueryWithReauth: BaseQueryFn<
