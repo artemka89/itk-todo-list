@@ -16,10 +16,10 @@ export const Header: FC<HeaderProps> = ({ actions, className }) => {
     <header
       className={cn(
         className,
-        'border-border bg-secondary mb-4 border-b shadow-lg'
+        'border-border bg-secondary flex h-[var(--header-height)] items-center border-b shadow-lg'
       )}
     >
-      <Container className='flex h-16 items-center justify-between gap-4 px-4'>
+      <Container className='flex flex-1 items-center justify-between gap-4 px-4'>
         <div className='text-primary text-2xl font-bold'>Список задач</div>
         <div className='flex items-center gap-4'>
           <div className='font-medium capitalize'>{user?.username}</div>

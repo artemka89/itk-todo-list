@@ -12,8 +12,8 @@ interface AuthLayoutProps {
 export const AuthLayout: FC<AuthLayoutProps> = ({ className }) => {
   return (
     <>
-      <header>
-        <Container className='flex h-16 items-center justify-end'>
+      <header className='h-[var(--header-height)]'>
+        <Container className='flex items-center justify-end'>
           <ThemeToggleButton />
         </Container>
       </header>

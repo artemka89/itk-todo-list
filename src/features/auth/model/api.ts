@@ -1,5 +1,6 @@
 import { baseApi } from '@/shared/api/base-api';
 import { tokenManager } from '@/shared/lib/token-manager';
+import { API_ROUTES } from '@/shared/routes';
 
 import type { Credentials, LoginRequest, User } from './types';
 
@@ -7,14 +8,14 @@ export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation<void, Credentials>({
       query: (body) => ({
-        url: '/auth/register',
+        url: API_ROUTES.REGISTER,
         method: 'POST',
         body
       })
     }),
     login: builder.mutation<LoginRequest, Credentials>({
       query: (body) => ({
-        url: '/auth/login',
+        url: API_ROUTES.LOGIN,
         method: 'POST',
         body
       }),
@@ -30,7 +31,7 @@ export const authApi = baseApi.injectEndpoints({
     }),
     me: builder.query<User, void>({
       query: () => ({
-        url: '/auth/me',
+        url: API_ROUTES.ME,
         method: 'GET'
       }),
       transformResponse: (response: { user: User }) => response.user

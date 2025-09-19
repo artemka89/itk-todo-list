@@ -8,7 +8,7 @@ export const MainLayout: FC = () => {
   return (
     <>
       <Header actions={<ThemeToggleButton />} />
-      <main>
+      <main className='mt-4 h-[calc(100vh-var(--header-height)-16px))]'>
         <Outlet />
       </main>
     </>

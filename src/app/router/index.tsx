@@ -6,6 +6,7 @@ import {
   LoginForm,
   RegisterForm
 } from '@/features/auth';
+import { TodosPage } from '@/features/todo';
 import { ROUTES } from '@/shared/routes';
 
 import { AuthLayout } from '../layouts/auth-layout';
@@ -25,11 +26,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ROUTES.TODOS,
-            element: <div>Todo list</div>
-          },
-          {
-            path: ROUTES.TODO,
-            element: <div>Todo</div>
+            element: <TodosPage />
           }
         ]
       }

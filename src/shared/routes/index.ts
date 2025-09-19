@@ -12,7 +12,7 @@ export const ROUTES = {
   LOGIN: '/login',
   REGISTER: '/register',
   TODOS: '/todos',
-  TODO: '/todo/:id'
+  TODO: '/todos/:id'
 } as const;
 
 export type PathParams = {
