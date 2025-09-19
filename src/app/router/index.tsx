@@ -1,11 +1,33 @@
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, Navigate } from 'react-router';
 
-import { LoginForm } from '@/features/auth';
+import { GuestGuard, LoginForm, RegisterForm } from '@/features/auth';
+import { ROUTES } from '@/shared/routes';
+
+import { AuthLayout } from '../layouts/auth-layout';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <LoginForm />
+    element: <Navigate to={ROUTES.TODOS} replace />
+  },
+
+  {
+    element: <GuestGuard />,
+    children: [
+      {
+        element: <AuthLayout />,
+        children: [
+          {
+            path: ROUTES.LOGIN,
+            element: <LoginForm />
+          },
+          {
+            path: ROUTES.REGISTER,
+            element: <RegisterForm />
+          }
+        ]
+      }
+    ]
   },
 
   {

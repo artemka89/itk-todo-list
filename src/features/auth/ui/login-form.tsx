@@ -1,5 +1,5 @@
 import { type FC, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { toast } from 'sonner';
 
 import { isErrorWithMessage } from '@/shared/api/types';
@@ -29,7 +29,10 @@ export const LoginForm: FC<LoginFormProps> = ({ className }) => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || ROUTES.TODOS;
 
   const [login, { isLoading }] = useLoginMutation();
 
@@ -70,7 +73,7 @@ export const LoginForm: FC<LoginFormProps> = ({ className }) => {
       .unwrap()
       .then(() => {
         formRef.current?.reset();
-        navigate(ROUTES.TODOS);
+        navigate(from);
       })
       .catch((error) => {
         if (isErrorWithMessage(error)) {
