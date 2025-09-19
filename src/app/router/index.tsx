@@ -1,9 +1,11 @@
 import { createBrowserRouter } from 'react-router';
 
+import { RegisterForm } from '@/features/auth/ui/register-form';
+
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>App</div>
+    element: <RegisterForm />
   },
 
   {
