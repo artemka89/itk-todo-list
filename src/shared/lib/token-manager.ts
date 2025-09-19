@@ -4,6 +4,7 @@ class TokenManager {
 
   clearToken = () => {
     localStorage.removeItem(this.accessTokenKey);
+    localStorage.removeItem(this.refreshTokenKey);
   };
 
   set accessToken(newToken: string | null) {
