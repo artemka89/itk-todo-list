@@ -1,4 +1,10 @@
-import { type ComponentProps, type FC, useState } from 'react';
+import {
+  type ComponentProps,
+  type FC,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react';
 import { Eye, EyeOff } from 'lucide-react';
 
 import { cn } from '@/shared/lib/cn';
@@ -17,16 +23,32 @@ export const PasswordInput: FC<PasswordInputProps> = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleToggleShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  useLayoutEffect(() => {
+    if (inputRef.current) {
+      const input = inputRef.current;
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    }
+  }, [showPassword]);
+
   return (
     <div className={cn(containerClassName, 'relative')}>
       <Input
+        ref={inputRef}
         type={showPassword ? 'text' : 'password'}
+        autoComplete='current-password'
         className={className}
         {...props}
       />
       <button
         type='button'
-        onClick={() => setShowPassword(!showPassword)}
+        onClick={handleToggleShowPassword}
         className='text-muted-foreground hover:text-foreground absolute top-0 right-0 h-full cursor-pointer px-3'
       >
         {showPassword ? (

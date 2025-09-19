@@ -12,15 +12,15 @@ interface AuthLayoutProps {
 export const AuthLayout: FC<AuthLayoutProps> = ({ className }) => {
   return (
     <>
-      <header className='h-[var(--header-height)]'>
-        <Container className='flex items-center justify-end'>
-          <ThemeToggleButton />
+      <header className='flex h-[var(--header-height)] items-center'>
+        <Container className='flex flex-1 justify-end'>
+          <ThemeToggleButton className='ml-auto' />
         </Container>
       </header>
       <main
         className={cn(
           className,
-          '-mt-16 flex h-[calc(100vh-64px)] items-center justify-center p-4'
+          '-mt-16 flex h-[calc(100vh-var(--header-height))] items-center justify-center p-4'
         )}
       >
         <Outlet />

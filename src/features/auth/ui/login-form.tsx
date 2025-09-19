@@ -117,6 +117,7 @@ export const LoginForm: FC<LoginFormProps> = ({ className }) => {
             name='username'
             type='text'
             placeholder='Введите логин'
+            autoComplete='username'
             className={cn({ ['border-destructive']: fieldsErrors.username })}
           />
           {fieldsErrors.username && (

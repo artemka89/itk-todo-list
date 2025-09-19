@@ -111,6 +111,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
             name='username'
             type='text'
             placeholder='Введите логин'
+            autoComplete='username'
             className={cn({ ['border-destructive']: fieldsErrors.username })}
           />
           {fieldsErrors.username && (
@@ -140,7 +141,7 @@ export const RegisterForm: FC<RegisterFormProps> = ({ className }) => {
           )}
         </div>
         <Button type='submit' disabled={isLoading}>
-          <span> Войти</span>
+          <span>Зарегистрироваться</span>
           {isLoading && <Spinner />}
         </Button>
         <div className='flex justify-center'>

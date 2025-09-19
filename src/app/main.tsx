@@ -17,7 +17,6 @@ createRoot(document.getElementById('root')!).render(
       <Provider store={store}>
         <ThemeProvider
           defaultTheme='dark'
-          storageKey='vite-ui-theme'
           renderTheme={(theme) => (
             <Toaster richColors position='top-right' theme={theme} />
           )}
