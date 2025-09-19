@@ -1,0 +1,6 @@
+[[redirects]]
+  from = "/api/*"
+  to = "http://xserver-krv.ru:91/:splat"
+  status = 200
+  force = true
+  headers = {X-From = "Netlify"}
