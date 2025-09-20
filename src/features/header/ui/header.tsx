@@ -20,9 +20,13 @@ export const Header: FC<HeaderProps> = ({ actions, className }) => {
       )}
     >
       <Container className='flex flex-1 items-center justify-between gap-4 px-4'>
-        <div className='text-primary text-2xl font-bold'>Список задач</div>
+        <div className='text-primary text-2xl font-bold max-sm:text-lg'>
+          Список задач
+        </div>
         <div className='flex items-center gap-4'>
-          <div className='font-medium capitalize'>{user?.username}</div>
+          <div className='font-medium capitalize max-sm:text-sm'>
+            {user?.username}
+          </div>
           <div className='flex items-center gap-2'>{actions}</div>
         </div>
       </Container>

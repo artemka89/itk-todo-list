@@ -102,6 +102,7 @@ export const TodoItem: FC<TodoItemProps> = ({ item, className }) => {
         <Checkbox
           checked={item.completed}
           onCheckedChange={handleToggleCompleted}
+          disabled={isEditing}
           className={cn(
             'dark:data-[state=checked]:border-primary dark:bg-border bg-muted dark:data-[state=checked]:bg-secondary dark:data-[state=checked]:text-primary size-6 rounded-full'
           )}
