@@ -7,8 +7,3 @@ export interface User {
   userId: number;
   username: string;
 }
-
-export interface LoginRequest {
-  accessToken: string;
-  refreshToken: string;
-}

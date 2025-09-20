@@ -1,8 +1,9 @@
 import { baseApi } from '@/shared/api/base-api';
+import type { TokensResponse } from '@/shared/api/types';
 import { tokenManager } from '@/shared/lib/token-manager';
 import { API_ROUTES } from '@/shared/routes';
 
-import type { Credentials, LoginRequest, User } from './types';
+import type { Credentials, User } from './types';
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -13,7 +14,7 @@ export const authApi = baseApi.injectEndpoints({
         body
       })
     }),
-    login: builder.mutation<LoginRequest, Credentials>({
+    login: builder.mutation<TokensResponse, Credentials>({
       query: (body) => ({
         url: API_ROUTES.LOGIN,
         method: 'POST',

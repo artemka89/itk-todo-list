@@ -5,7 +5,7 @@ export type Error = {
   status: number;
 };
 
-export interface RefreshTokensRequest {
+export interface TokensResponse {
   accessToken: string;
   refreshToken: string;
 }

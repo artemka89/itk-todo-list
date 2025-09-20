@@ -10,12 +10,27 @@ import { tokenManager } from '../lib/token-manager';
 import { API_ROUTES } from '../routes';
 
 import { API_URL } from './constants';
-import type { RefreshTokensRequest } from './types';
+import type { TokensResponse } from './types';
 
 const mutex = new Mutex();
 
 export const baseQuery = fetchBaseQuery({
-  baseUrl: API_URL
+  baseUrl: API_URL,
+  prepareHeaders: (headers, { endpoint }) => {
+    const token = localStorage.getItem('access_token');
+    const isAuthEndpoint = (
+      [
+        API_ROUTES.LOGIN,
+        API_ROUTES.REGISTER,
+        API_ROUTES.REFRESH_TOKEN
+      ] as string[]
+    ).includes(endpoint);
+
+    if (token && !isAuthEndpoint) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+    return headers;
+  }
 });
 
 export const baseQueryWithReauth: BaseQueryFn<
@@ -27,8 +42,9 @@ export const baseQueryWithReauth: BaseQueryFn<
     const release = await mutex.acquire();
 
     try {
-      const response = await baseQuery(
+      const refreshResponse = await baseQuery(
         {
+          ...args,
           url: API_ROUTES.REFRESH_TOKEN,
           method: 'POST',
           body: { refreshToken: tokenManager.refreshToken }
@@ -37,14 +53,23 @@ export const baseQueryWithReauth: BaseQueryFn<
         extraOptions
       );
 
-      const tokens = response.data as RefreshTokensRequest;
-
-      if (!tokens) {
+      if (refreshResponse.error) {
         tokenManager.clearToken();
       }
 
-      tokenManager.accessToken = tokens.accessToken;
-      tokenManager.refreshToken = tokens.refreshToken;
+      const tokens = refreshResponse.data as TokensResponse | undefined;
+      if (tokens) {
+        tokenManager.accessToken = tokens.accessToken;
+        tokenManager.refreshToken = tokens.refreshToken;
+      } else {
+        tokenManager.clearToken();
+        return {
+          error: {
+            status: 401,
+            data: 'Invalid token response'
+          } as FetchBaseQueryError
+        };
+      }
     } finally {
       release();
     }
@@ -52,10 +77,5 @@ export const baseQueryWithReauth: BaseQueryFn<
     await mutex.waitForUnlock();
   }
 
-  const requestHeaders =
-    args.url !== API_ROUTES.LOGIN && args.url !== API_ROUTES.REGISTER
-      ? { Authorization: `Bearer ${tokenManager.accessToken}` }
-      : {};
-
-  return baseQuery({ ...args, headers: requestHeaders }, api, extraOptions);
+  return baseQuery(args, api, extraOptions);
 };
